@@ -38,6 +38,7 @@ function GameController(grid, scope) {
 		this.columns = grid.rows[0].cells.length;
 		tetromino = null;
 		timeToDrop = 500;
+        scope.scoreBean.score=10;
 	};
 	
 	this.settingsStyle = function() {
@@ -97,6 +98,7 @@ function GameController(grid, scope) {
 	};
 
 	this.dropRowsAbove = function(bottomRow) {
+	    scope.scoreBean.score+=bottomRow;
 		for (var r = bottomRow; r > 0; r--)
 			for (var c = 0; c < columns; c++)
 				playground.rows[r].cells[c].color = playground.rows[r - 1].cells[c].color;
