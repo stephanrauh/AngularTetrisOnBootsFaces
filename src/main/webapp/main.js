@@ -5,7 +5,7 @@ angular.module("AngularTetris", [ "angularfaces" ])
 	$scope.game = new GameController($scope.grid, $scope);
 	window.gameController=$scope.game;
 	$scope.game.init($scope.grid);
-	$scope.game.startGame();
+//	$scope.game.startGame();
 
 	$scope.brickColor = function(color){
 		if (0==color) return "#FFFFFF";

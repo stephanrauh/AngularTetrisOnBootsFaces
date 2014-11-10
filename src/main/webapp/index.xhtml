@@ -31,9 +31,22 @@
 										</div>
 									</div>
 								</b:column>
-								<b:column span="4">
-									<b:inputText type="number" disabled="true"
-										value="{{scoreBean.score}}" />
+								<b:column span="2">
+									<form>
+										<b:row>
+											<b:column span="12">
+												<b:inputText type="number" disabled="true" label="score"
+													value="{{scoreBean.score}}" />
+											</b:column>
+										</b:row>
+										<b:row>
+											<b:column span="12">
+												<b:button value="start game"   style="padding-top:12px;" onclick="return true;"
+													ng-click="game.initGame(); game.startGame()">
+												</b:button>
+											</b:column>
+										</b:row>
+									</form>
 								</b:column>
 							</b:row>
 						</b:container>

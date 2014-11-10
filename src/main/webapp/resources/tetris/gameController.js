@@ -38,7 +38,7 @@ function GameController(grid, scope) {
 		this.columns = grid.rows[0].cells.length;
 		tetromino = null;
 		timeToDrop = 500;
-        scope.scoreBean.score=10;
+        scope.scoreBean.score=0;
 	};
 	
 	this.settingsStyle = function() {
@@ -146,6 +146,13 @@ function GameController(grid, scope) {
 	};
 
 	this.startGame = function() {
+        for (var r = 0; r < this.rows; r++) {
+            var row = playground.rows[r];
+            for (var c=0; c < this.columns; c++) {
+                row.cells[c].color=0;
+            }
+        }
+
 		timeToDrop = 500;
 		var now = new Date();
 		this.nextDrop = now.getTime() + timeToDrop;
