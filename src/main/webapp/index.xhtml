@@ -14,55 +14,53 @@
 		<style>
 		</style>
 	</head>
-	<h:body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris">
-		<h3>AngularTetris</h3>
-		<b:container>
-			<b:tabView>
-				<b:tab title="AngularTetris!">
-					<h:form>
-						<ngsync value="{{grid.rows}}" direction="serverToClient" />
-						<b:container>
-							<b:row>
-								<b:column span="4">
-									<div class="divTable" id="playground">
-										<div class="divRow" ng-repeat="r in grid.rows">
-											<div class="divCell" ng-repeat="cell in r.cells" id="cell"
-												style="background-color: {{brickColor(cell.color)}}"></div>
+	<body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris" addLabels="false">
+		<container>
+			<h3>AngularTetris</h3>
+			<form>
+				<tabView>
+					<tab title="AngularTetris!">
+							<ngsync value="{{grid.rows}}" direction="serverToClient" />
+							<container>
+								<row>
+									<column span="4">
+										<div class="divTable" id="playground">
+											<div class="divRow" ng-repeat="r in grid.rows">
+												<div class="divCell" ng-repeat="cell in r.cells" id="cell"
+													style="background-color: {{brickColor(cell.color)}}"></div>
+											</div>
 										</div>
-									</div>
-								</b:column>
-								<b:column span="2">
-									<form>
-										<b:row>
-											<b:column span="12">
-												<b:inputText type="number" disabled="true" label="score"
+									</column>
+									<column span="2">
+										<row>
+											<column span="12">
+												<inputText type="number" disabled="true" label="score"
 													value="{{scoreBean.score}}" />
-											</b:column>
-										</b:row>
-										<b:row>
-											<b:column span="12">
-												<b:button value="start game"   style="padding-top:12px;" onclick="return true;"
-													ng-click="game.initGame(); game.startGame()">
+											</column>
+										</row>
+										<row>
+											<column span="12">
+												<b:button value="start game" style="margin-top:12px;"
+													ng-click="game.initGame(); game.startGame()" ng-hide="game.gameActive">
 												</b:button>
-											</b:column>
-										</b:row>
-									</form>
-								</b:column>
-							</b:row>
-						</b:container>
-					</h:form>
-				</b:tab>
-				<b:tab title="Settings">
-					<h:panelGrid columns="3">
-						<b:inputText value="{{settingsBean.numberOfColumns}}" />
-						<b:inputText value="{{settingsBean.numberOfRows}}" />
-						<b:inputText value="{{settingsBean.preview}}" />
-						<b:inputText value="{{settingsBean.ignoreGravity}}" />
-					</h:panelGrid>
-				
-				</b:tab>
-				<b:tab title="High scores">This is the second tab.</b:tab>
-			</b:tabView>
-		</b:container>
-	</h:body>
+											</column>
+										</row>
+									</column>
+								</row>
+							</container>
+					</tab>
+					<tab title="Settings">
+						<h:panelGrid columns="2">
+							<inputText value="{{settingsBean.numberOfColumns}}" label="columns"/>
+							<inputText value="{{settingsBean.numberOfRows}}" label="rows"/>
+							<selectBooleanCheckbox value="{{settingsBean.preview}}" label="preview" />
+							<selectBooleanCheckbox value="{{settingsBean.ignoreGravity}}" label="gravity"/>
+						</h:panelGrid>
+					
+					</tab>
+					<tab title="High scores">This is the high score tab.</tab>
+				</tabView>
+			</form>
+		</container>
+	</body>
 </f:view>

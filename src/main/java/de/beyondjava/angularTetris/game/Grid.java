@@ -16,6 +16,7 @@
  */
 package de.beyondjava.angularTetris.game;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,9 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class Grid {
+public class Grid implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	public List<Row> rows;
 
 	public List<Row> getRows() {

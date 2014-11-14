@@ -20,7 +20,7 @@ function GameController(grid, scope) {
 	var columns = 10;
 	var timeToDrop;
 	var counter = 0;
-	var gameActive = false;
+	this.gameActive = false;
 	var gravity = false;
 	var preview = false;
 	var nextDrop = 0;
@@ -42,12 +42,12 @@ function GameController(grid, scope) {
 	};
 	
 	this.settingsStyle = function() {
-		if (gameActive) return "display:none";
+		if (this.gameActive) return "display:none";
 		return "";
 	}
 	
 	this.scoreStyle = function() {
-		if (!gameActive) return "display:none";
+		if (!this.gameActive) return "display:none";
 		return "";
 	}
 	
@@ -156,7 +156,7 @@ function GameController(grid, scope) {
 		timeToDrop = 500;
 		var now = new Date();
 		this.nextDrop = now.getTime() + timeToDrop;
-		gameActive = true;
+		this.gameActive = true;
 		this.update(null);
 	};
 
@@ -172,7 +172,8 @@ function GameController(grid, scope) {
 	};
 
 	this.endOfGame = function() {
-		gameActive = false;
+		this.gameActive = false;
+		gameController.updateGraphics();
 	};
 
 	/** This method is called as a static function! */
