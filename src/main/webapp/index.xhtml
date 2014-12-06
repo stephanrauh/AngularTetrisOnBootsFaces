@@ -50,12 +50,16 @@
 							</container>
 					</tab>
 					<tab title="Settings">
-						<h:panelGrid columns="2">
-							<inputText value="{{settingsBean.numberOfColumns}}" label="columns"/>
-							<inputText value="{{settingsBean.numberOfRows}}" label="rows"/>
-							<selectBooleanCheckbox value="{{settingsBean.preview}}" label="preview" />
+						<b:panelGrid colSpans="3,9">
+							<inputText value="{{settingsBean.numberOfColumns}}" label="columns (not implemented yet)"/>
+							<inputText value="{{settingsBean.numberOfRows}}" label="rows (not implemented yet)"/>
+							<selectBooleanCheckbox value="{{settingsBean.preview}}" label="preview (not implemented yet)" />
 							<selectBooleanCheckbox value="{{settingsBean.ignoreGravity}}" label="gravity"/>
-						</h:panelGrid>
+						</b:panelGrid>
+						<b:commandButton value="apply" />
+						<span>Preview</span>
+						<span>{{settingsBean.preview}}</span>
+						<h:messages showSummary="true" showDetail="true" globalOnly="true"  />
 					
 					</tab>
 					<tab title="High scores">This is the high score tab.</tab>

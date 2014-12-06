@@ -21,8 +21,8 @@ function GameController(grid, scope) {
 	var timeToDrop;
 	var counter = 0;
 	this.gameActive = false;
-	var gravity = false;
-	var preview = false;
+	var gravity = scope.settingsBean.ignoreGravity;
+	var preview = scope.settingsBean.preview;
 	var nextDrop = 0;
 	var score= 0;
 
@@ -56,10 +56,12 @@ function GameController(grid, scope) {
 	};
 
 	this.dropTile = function() {
-		if (!tetromino.moveTileDown(playground)) {
+	    if (null != tetromino) {
+  		  if (!tetromino.moveTileDown(playground)) {
 			tetromino = null;
 			this.eliminateCompletedRows(playground);
-		}
+		  }
+	    }
 	};
 
 	// playground is a two-dimensional array of integers, which in turn are
@@ -84,13 +86,12 @@ function GameController(grid, scope) {
 		var movement = false;
 		if (gravity) {
 			for (var c = 0; c < columns; c++) {
-				var column = playground.rows[c].cells;
-				for (var r = (rows - 1); r > 0; r--)
-					if (column[r].color == 0
-							&& column[r].color != column[r - 1].color) {
+				for (var r = (this.rows - 1); r > 0; r--)
+					if (playground.rows[r].cells[c].color == 0
+							&& playground.rows[r].cells[c].color != playground.rows[r-1].cells[c].color) {
 						movement = true;
-						column[r].color = column[r - 1].color;
-						column[r - 1].color = 0;
+						playground.rows[r].cells[c].color = playground.rows[r-1].cells[c].color;
+						playground.rows[r-1].cells[c].color = 0;
 					}
 			}
 		}
@@ -180,26 +181,17 @@ function GameController(grid, scope) {
 	this.onKey = function(event) {
 		event = event || window.event;
 		var code = event.keyCode;
-		console.log(code);
 		if (code == 37) {
 			tetromino.moveTile(-1, playground);
-			// drawBricks();
-			// updateGraphicsCallback();
 		}
 		if (code == 39) {
 			tetromino.moveTile(1, playground);
-			// drawBricks();
-			// updateGraphicsCallback();
 		}
 		if (code == 40) {
 			tetromino.rotateTile(playground, 90);
-			// drawBricks();
-			// updateGraphicsCallback();
 		}
 		if (code == 38) {
 			tetromino.rotateTile(playground, 270);
-			// drawBricks();
-			// updateGraphicsCallback();
 		}
 		if (code == 13) {
 			gameController.dropTile();
@@ -207,8 +199,6 @@ function GameController(grid, scope) {
 		if (code == 32) {
 			while (null != tetromino) {
 				gameController.dropTile();
-				// drawBricks();
-				// updateGraphicsCallback();
 			}
 		}
 		gameController.updateGraphics();

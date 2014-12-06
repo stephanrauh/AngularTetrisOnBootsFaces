@@ -8,27 +8,19 @@
 	xmlns:ac="http://beyondjava.net/angularFacesCore">
 	<head>
 		<title>AngularFaces 2.0 + BootsFaces 0.51 Tetris demo</title>
-		<h:outputStylesheet library="tetris" name="angulartetris.css" target="head"></h:outputStylesheet>
-		<h:outputScript library="tetris" name="tetromino.js" target="head"></h:outputScript>
-		<h:outputScript library="tetris" name="gameController.js" target="head"></h:outputScript>
-		<style>
-		</style>
 	</head>
-	<h:body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris">
-		<h3>AngularTetris</h3>
-		<b:container>
-			<b:row>
-				<b:column span="4">
-					<div class="divTable" id="playground">
-						<div class="divRow" ng-repeat="r in grid.rows">
-							<div class="divCell" ng-repeat="cell in r.cells" id="cell"
-								style="background-color: {{brickColor(cell.color)}}"></div>
-						</div>
-					</div>
-				</b:column>
-				<b:column span="4">
-				</b:column>
-			</b:row>
-		</b:container>
-	</h:body>
+	<body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris" addLabels="false">
+		<container>
+			<form>
+						<h:panelGrid >
+							<inputText value="{{settingsBean.numberOfColumns}}" ng:type="number"/>
+							<ui:remove>
+							<inputText value="{{settingsBean.numberOfRows}}" ng:type="number"/>
+							<selectBooleanCheckbox value="{{settingsBean.preview}}" label="preview" />
+							<selectBooleanCheckbox value="{{settingsBean.ignoreGravity}}" label="gravity"/>
+							</ui:remove>
+						</h:panelGrid>
+			</form>
+		</container>
+	</body>
 </f:view>

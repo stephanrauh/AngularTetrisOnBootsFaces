@@ -18,15 +18,33 @@ package de.beyondjava.angularTetris.settings;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @ManagedBean
 @SessionScoped
 public class SettingsBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@NotNull
+	@Min(10)
+	@Max(40)
 	private int numberOfRows = 25;
+	
+	@NotNull
+	@Min(5)
+	@Max(20)
 	private int numberOfColumns = 10;
+	
+	private String username;
+	
+	private String password;
+	
 	private boolean preview = false;
 	private boolean ignoreGravity = true;
 	
@@ -62,5 +80,26 @@ public class SettingsBean implements Serializable {
 
 	public void setPreview(boolean preview) {
 		this.preview = preview;
+	}
+	
+	public String onClick() {
+		FacesContext.getCurrentInstance().addMessage("j_idt9:cc", new FacesMessage("sdfs", "sfjsdk"));
+		return null;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }
