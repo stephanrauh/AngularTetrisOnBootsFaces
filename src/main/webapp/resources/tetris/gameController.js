@@ -16,8 +16,8 @@
  */
 
 function GameController(grid, scope) {
-	this.rows = 20;
-	var columns = 10;
+	this.rows = scope.settingsBean.numberOfRows;
+	var columns = scope.settingsBean.numberOfColumns;
 	var timeToDrop;
 	var counter = 0;
 	this.gameActive = false;

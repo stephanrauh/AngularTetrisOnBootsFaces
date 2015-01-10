@@ -38,13 +38,13 @@ public class Row implements Serializable {
 		this.cells = cells;
 	}
 
-	public Row(int y) {
-		init(y);
+	public Row(int width) {
+		init(width);
 	}
 
-	public void init(int y) {
+	public void init(int width) {
 		cells = new ArrayList<Cell>();
-		for (int x = 0; x < 10; x++)
+		for (int x = 0; x < width; x++)
 				cells.add(new Cell(0));
 	}
 

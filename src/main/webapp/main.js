@@ -22,6 +22,23 @@ angular.module("AngularTetris", [ "angularfaces" ])
 	$scope.onkey = function(event) {
 		$scope.game.onKey(event);
 	};
+	
+	$scope.showApplyButton=false;
+	
+    $scope.$watch('settingsBean.ignoreGravity', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    $scope.$watch('settingsBean.preview', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    $scope.$watch('settingsBean.numberOfColumns', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    $scope.$watch('settingsBean.numberOfRows', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    
+    $scope.showApplyButton=false;
 }]);
 
 

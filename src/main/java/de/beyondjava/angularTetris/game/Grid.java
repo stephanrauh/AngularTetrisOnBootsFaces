@@ -20,13 +20,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 
+import de.beyondjava.angularTetris.settings.SettingsBean;
+
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class Grid implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	@ManagedProperty("#{settingsBean}")
+	private SettingsBean settings;
 
 	public List<Row> rows;
 
@@ -35,14 +43,18 @@ public class Grid implements Serializable {
 	}
 
 	public Grid() {
-		init();
 	}
 
+	@PostConstruct
 	public void init() {
 		rows = new ArrayList<Row>();
-		for (int y = 0; y < 20; y++) {
-			rows.add(new Row(y));
+		for (int y = 0; y < settings.getNumberOfRows(); y++) {
+			rows.add(new Row(settings.getNumberOfColumns()));
 		}
+	}
+
+	public void setSettings(SettingsBean settings) {
+		this.settings = settings;
 	}
 
 }

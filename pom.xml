@@ -37,8 +37,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.bootsfaces</groupId>
-			<artifactId>BootsFaces-OSP</artifactId>
-			<version>0.51-SNAPSHOT</version>
+			<artifactId>bootsfaces</artifactId>
+			<version>0.6.5-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 

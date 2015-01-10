@@ -46,7 +46,7 @@ public class SettingsBean implements Serializable {
 	private String password;
 	
 	private boolean preview = false;
-	private boolean ignoreGravity = true;
+	private boolean ignoreGravity = false;
 	
 	public String getCaption() { return "Settings";}
 
@@ -82,11 +82,6 @@ public class SettingsBean implements Serializable {
 		this.preview = preview;
 	}
 	
-	public String onClick() {
-		FacesContext.getCurrentInstance().addMessage("j_idt9:cc", new FacesMessage("sdfs", "sfjsdk"));
-		return null;
-	}
-
 	public String getPassword() {
 		return password;
 	}

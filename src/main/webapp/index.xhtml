@@ -7,7 +7,7 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ac="http://beyondjava.net/angularFacesCore">
 	<head>
-		<title>AngularFaces 2.0 + BootsFaces 0.51 Tetris demo</title>
+		<title>AngularFaces 2.0 + BootsFaces 0.6.0 Tetris demo</title>
 		<h:outputStylesheet library="tetris" name="angulartetris.css" target="head"></h:outputStylesheet>
 		<h:outputScript library="tetris" name="tetromino.js" target="head"></h:outputScript>
 		<h:outputScript library="tetris" name="gameController.js" target="head"></h:outputScript>
@@ -23,11 +23,11 @@
 							<ngsync value="{{grid.rows}}" direction="serverToClient" />
 							<container>
 								<row>
-									<column span="4">
+									<column span="#{2+(settingsBean.numberOfColumns*2/7)}">
 										<div class="divTable" id="playground">
-											<div class="divRow" ng-repeat="r in grid.rows">
+											<div class="divRow" ng-repeat="r in grid.rows ">
 												<div class="divCell" ng-repeat="cell in r.cells" id="cell"
-													style="background-color: {{brickColor(cell.color)}}"></div>
+													style="background-color: {{brickColor(cell.color)}}">{{cell.color}}</div>
 											</div>
 										</div>
 									</column>
@@ -51,14 +51,12 @@
 					</tab>
 					<tab title="Settings">
 						<b:panelGrid colSpans="3,9">
-							<inputText value="{{settingsBean.numberOfColumns}}" label="columns (not implemented yet)"/>
-							<inputText value="{{settingsBean.numberOfRows}}" label="rows (not implemented yet)"/>
-							<selectBooleanCheckbox value="{{settingsBean.preview}}" label="preview (not implemented yet)" />
-							<selectBooleanCheckbox value="{{settingsBean.ignoreGravity}}" label="gravity"/>
+							<selectBooleanCheckbox value="{{settingsBean.preview}}" caption="preview (not implemented yet)" />
+							<selectBooleanCheckbox value="{{settingsBean.ignoreGravity}}" caption="gravity"/>
+							<inputText value="{{settingsBean.numberOfColumns}}" label="columns (width)"/>
+							<inputText value="{{settingsBean.numberOfRows}}" label="rows (height)"/>
 						</b:panelGrid>
-						<b:commandButton value="apply" />
-						<span>Preview</span>
-						<span>{{settingsBean.preview}}</span>
+						<b:commandButton value="apply changes" ng-show="showApplyButton" />
 						<h:messages showSummary="true" showDetail="true" globalOnly="true"  />
 					
 					</tab>
