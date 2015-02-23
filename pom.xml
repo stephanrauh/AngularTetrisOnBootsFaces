@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>de.beyondjava</groupId>
 			<artifactId>angularFaces-core</artifactId>
-			<version>2.1.0</version>
+			<version>2.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -58,7 +58,7 @@
 		<profile>
 			<id>Mojarra</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<dependencies>
 				<dependency>
@@ -78,19 +78,19 @@
 		<profile>
 			<id>MyFaces</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
 				<dependency>
 					<groupId>org.apache.myfaces.core</groupId>
 					<artifactId>myfaces-api</artifactId>
-					<version>2.2.4</version>
+					<version>2.2.7</version>
 					<scope>compile</scope>
 				</dependency>
 				<dependency>
 					<groupId>org.apache.myfaces.core</groupId>
 					<artifactId>myfaces-impl</artifactId>
-					<version>2.2.4</version>
+					<version>2.2.7</version>
 					<scope>runtime</scope>
 				</dependency>
 			</dependencies>

@@ -38,6 +38,11 @@ public class Row implements Serializable {
 		this.cells = cells;
 	}
 
+	/** Default constructor seems to be required by JBoss */ 
+    public Row() {
+        init(10);
+    }
+
 	public Row(int width) {
 		init(width);
 	}

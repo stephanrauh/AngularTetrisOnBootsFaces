@@ -2,3 +2,5 @@
 rebel.xml
 .metadata
 .settings
+dist
+.faces-config.xml.jsfdia

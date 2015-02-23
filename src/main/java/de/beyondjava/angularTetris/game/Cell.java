@@ -19,20 +19,25 @@ package de.beyondjava.angularTetris.game;
 import java.io.Serializable;
 
 public class Cell implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	int color;
+    int color;
 
-	public Cell(int color) {
-		this.color=color;
-	}
+    /** Default constructor seems to be required by JBoss */
+    public Cell() {
+        this(0);
+    }
 
-	public int getColor() {
-		return color;
-	}
+    public Cell(int color) {
+        this.color = color;
+    }
 
-	public void setColor(int color) {
-		this.color = color;
-	}
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 
 }
