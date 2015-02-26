@@ -45,12 +45,6 @@
 												</b:button>
 											</column>
 										</row>
-                                        <row>
-                                            <column span="12">
-                                                <b:button id="openHighscoreTab" look="primary" value="Add a new highscore"
-                                                          ng:data-target=".modal" ng:data-toggle="modal" onclick="return false;"/>
-                                            </column>
-                                        </row>
 									</column>
 								</row>
 							</container>
@@ -74,9 +68,9 @@
                     <p>You've made it into the hall of fame!</p>
                     <b:container>
                         <b:panelGrid colSpans="4,2,6" size="xs">
-                            <b:inputText id="familyname" value="#{scoreBean.score}" required="true" label="What's your name? *" />
+                            <b:inputText id="familyname" value="{{scoreBean.name}}" required="true" label="What's your name? *" />
                             <h:outputLabel value="" />
-                            <b:inputText id="score" value="#{scoreBean.name}" label="Your score:"/>
+                            <b:inputText id="score" value="{{scoreBean.score}}" label="Your score:" disabled="true"/>
                             <h:outputLabel value="" />
                         </b:panelGrid>
                         <b:commandButton value="apply changes" action="#{scoreBean.saveScore}" dismiss="modal"/>

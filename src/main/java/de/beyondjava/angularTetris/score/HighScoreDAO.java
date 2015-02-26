@@ -12,38 +12,34 @@ import org.hsqldb.rights.User;
 
 public class HighScoreDAO {
 
-    private SessionFactory sessionFactory;
-    private Configuration config;
-    private Session session;
-
-    public HighScoreDAO() {
-        // 1. configuring hibernate
+    private static SessionFactory sessionFactory;
+    
+    static {
+        Configuration config;
         config = new Configuration().configure();
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder()
                 .applySettings(config.getProperties());
         sessionFactory = config.buildSessionFactory(ssrb.build());
-        session = sessionFactory.openSession();
+        
     }
 
-    public void persistUser(HighScore user) {
+    public HighScoreDAO() {
+    }
 
+    public void persistScore(HighScore score) {
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(user);
+        session.persist(score);
         transaction.commit();
-
+        session.close();
     }
 
-    public ArrayList<HighScore> loadAll() {
-
-        // Criteria criteria = session.createCriteria(User.class);
-        // criteria.addOrder(Order.asc( "lastName" ));
-
-        return (ArrayList<HighScore>) session.createCriteria(HighScore.class).list();
+    public ArrayList<HighScore> loadHighScoreTable() {
+        Session session = sessionFactory.openSession();
+        try {
+            return (ArrayList<HighScore>) session.createQuery("from HighScore order by score desc");
+        } finally {
+            session.close();
+        }
     }
-
-    // public Boolean exists(HighScore score) {
-    // Query query = session.createQuery("select 1 from User u where u.email = :key");
-    // query.setString("key", score.getEmail());
-    // return (query.uniqueResult() != null);
-    // }
 }

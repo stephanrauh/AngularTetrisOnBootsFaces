@@ -159,6 +159,7 @@ function GameController(grid, scope) {
 		this.nextDrop = now.getTime() + timeToDrop;
 		this.gameActive = true;
 		this.update(null);
+
 	};
 
 	/** returns false if the next tile cannot be drawn */
@@ -175,6 +176,8 @@ function GameController(grid, scope) {
 	this.endOfGame = function() {
 		this.gameActive = false;
 		gameController.updateGraphics();
+		var dlg = $('.highscoreinputdialog');
+		dlg.modal();
 	};
 
 	/** This method is called as a static function! */
