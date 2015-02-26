@@ -1,14 +1,13 @@
 package de.beyondjava.angularTetris.score;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hsqldb.rights.User;
 
 public class HighScoreDAO {
 
@@ -34,10 +33,10 @@ public class HighScoreDAO {
         session.close();
     }
 
-    public ArrayList<HighScore> loadHighScoreTable() {
+    public List<HighScore> loadHighScoreTable() {
         Session session = sessionFactory.openSession();
         try {
-            return (ArrayList<HighScore>) session.createQuery("from HighScore order by score desc");
+            return (List<HighScore>) session.createQuery("from HighScore order by score desc").list();
         } finally {
             session.close();
         }

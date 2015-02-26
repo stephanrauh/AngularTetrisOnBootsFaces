@@ -60,7 +60,19 @@
 						<h:messages showSummary="true" showDetail="true" globalOnly="true"  />
 					
 					</tab>
-					<tab title="High scores">This is the high score tab.</tab>
+					<tab title="High scores">
+                        Number of highscores: #{highScoreTableBean.highscores.size()}
+                        <h:dataTable var="score" value="#{highScoreTableBean.highscores}">
+                            <h:column headerText="Name">
+                                <h:outputText value="#{score.name}" />
+                            </h:column>
+                         
+                            <h:column headerText="Score">
+                                <h:outputText value="#{score.score}" />
+                            </h:column>
+                         
+                        </h:dataTable>
+                    </tab>
 				</tabView>
 			</form>
             <b:modal id="amodal" title="Congratulations!" styleClass="highscoreinputdialog">
