@@ -17,7 +17,7 @@
 	<body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris" addLabels="false">
 		<container>
 			<h3>AngularTetris</h3>
-			<form>
+			<form prependId="false">
 				<tabView>
 					<tab title="AngularTetris!">
 							<ngsync value="{{grid.rows}}" direction="serverToClient" />
@@ -40,11 +40,17 @@
 										</row>
 										<row>
 											<column span="12">
-												<b:button value="start game" style="margin-top:12px;"
+												<b:button value="start game" style="margin-top:12px;" look="primary"
 													ng-click="game.initGame(); game.startGame()" ng-hide="game.gameActive" onclick="return false;">
 												</b:button>
 											</column>
 										</row>
+                                        <row>
+                                            <column span="12">
+                                                <b:button id="openHighscoreTab" look="primary" value="Add a new highscore"
+                                                          ng:data-target=".modal" ng:data-toggle="modal" onclick="return false;"/>
+                                            </column>
+                                        </row>
 									</column>
 								</row>
 							</container>
@@ -63,6 +69,27 @@
 					<tab title="High scores">This is the high score tab.</tab>
 				</tabView>
 			</form>
+            <b:modal id="amodal" title="Congratulations!" styleClass="highscoreinputdialog">
+                <form prependId="false">
+                    <p>You've made it into the hall of fame!</p>
+                    <b:container>
+                        <b:panelGrid colSpans="4,2,6" size="xs">
+                            <b:inputText id="familyname" value="#{scoreBean.score}" required="true" label="What's your name? *" />
+                            <h:outputLabel value="" />
+                            <b:inputText id="score" value="#{scoreBean.name}" label="Your score:"/>
+                            <h:outputLabel value="" />
+                        </b:panelGrid>
+                        <b:commandButton value="apply changes" action="#{scoreBean.saveScore}" dismiss="modal"/>
+                    </b:container>
+    
+                    <f:facet name="footer">
+                        <b:commandButton value="Ajax Submit" dismiss="modal" ajax="true" update="form:inform infoshow" id="ajaxcb"
+                            look="primary" />
+                        <b:button value="OK" look="primary" dismiss="modal" onclick="return false;" />
+                    </f:facet>
+                </form>
+            </b:modal>
 		</container>
+        <h:messages />
 	</body>
 </f:view>
