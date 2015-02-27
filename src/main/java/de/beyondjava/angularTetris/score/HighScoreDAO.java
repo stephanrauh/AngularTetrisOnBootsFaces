@@ -1,5 +1,6 @@
 package de.beyondjava.angularTetris.score;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -14,17 +15,13 @@ public class HighScoreDAO {
 
     static {
         Configuration config = new Configuration()
-        .setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")
-        .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver")
-        .setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:tetrisHighScores")
-        .setProperty("hibernate.connection.username", "sa")
-        .setProperty("hibernate.connection.password", "")
-        .setProperty("hibernate.hbm2ddl.auto", "update")
-        .setProperty("hibernate.show_sql", "true")
-        .setProperty("hibernate.order_updates", "true")
-        .addAnnotatedClass(HighScore.class);
-        
-        
+                .setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")
+                .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver")
+                .setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:tetrisHighScores")
+                .setProperty("hibernate.connection.username", "sa").setProperty("hibernate.connection.password", "")
+                .setProperty("hibernate.hbm2ddl.auto", "update").setProperty("hibernate.show_sql", "true")
+                .setProperty("hibernate.order_updates", "true").addAnnotatedClass(HighScore.class);
+
         StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder()
                 .applySettings(config.getProperties());
         sessionFactory = config.buildSessionFactory(ssrb.build());
@@ -47,12 +44,20 @@ public class HighScoreDAO {
         try {
             List<HighScore> result = (List<HighScore>) session.createQuery("from HighScore order by score desc").list();
             result = addDefaultEntries(result);
+            result.sort(new Comparator<HighScore>() {
+                @Override
+                public int compare(HighScore o1, HighScore o2) {
+                    return o2.getScore() - o1.getScore();
+                }
+            });
+            while (result.size()>100)
+                result.remove(100); // Protection against Out of Memory
             return result;
         } finally {
             session.close();
         }
     }
-    
+
     public List<HighScore> addDefaultEntries(List<HighScore> scores) {
         scores.add(new HighScore("Alf Abet", 100));
         scores.add(new HighScore("Anna Lytic", 200));
