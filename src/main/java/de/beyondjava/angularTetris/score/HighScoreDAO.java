@@ -20,7 +20,7 @@ public class HighScoreDAO {
         Configuration config = new Configuration()
         .setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")
         .setProperty("hibernate.connection.driver_class", "org.hsqldb.jdbcDriver")
-        .setProperty("hibernate.connection.url", "jdbc:hsqldb:file:tetrisHighScores")
+        .setProperty("hibernate.connection.url", "jdbc:hsqldb:mem:tetrisHighScores")
         .setProperty("hibernate.connection.username", "sa")
         .setProperty("hibernate.connection.password", "")
         .setProperty("hibernate.hbm2ddl.auto", "update")

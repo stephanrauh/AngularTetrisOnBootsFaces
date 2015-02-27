@@ -18,7 +18,7 @@ public class DatabaseInitServlet extends Servlet {
 		System.out.println("Starting HSQLDB database!");
 		try {
 			HsqlProperties p = new HsqlProperties();
-			p.setProperty("server.database.0", "file:tetrisHighScores");
+			p.setProperty("server.database.0", "mem:mymemdb");
 			p.setProperty("server.dbname.0", "tetrisHighScores");
 			p.setProperty("server.port", "9001");
 			Server server = new Server();
