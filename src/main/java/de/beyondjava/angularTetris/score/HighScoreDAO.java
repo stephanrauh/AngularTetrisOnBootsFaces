@@ -44,11 +44,11 @@ public class HighScoreDAO {
         try {
             List<HighScore> result = (List<HighScore>) session.createQuery("from HighScore order by score desc").list();
             result = addDefaultEntries(result);
-            result.sort(new Comparator<HighScore>() {
-                public int compare(HighScore o1, HighScore o2) {
-                    return o2.getScore() - o1.getScore();
-                }
-            });
+//            result.sort(new Comparator<HighScore>() {
+//                public int compare(HighScore o1, HighScore o2) {
+//                    return o2.getScore() - o1.getScore();
+//                }
+//            });
             while (result.size()>100)
                 result.remove(100); // Protection against Out of Memory
             return result;
