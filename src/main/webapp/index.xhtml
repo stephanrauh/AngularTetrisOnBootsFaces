@@ -76,17 +76,21 @@
 				</tabView>
 			</form>
             <b:modal id="amodal" title="Congratulations!" styleClass="highscoreinputdialog">
-                <form prependId="false">
-                    <p>You've made it into the hall of fame!</p>
-                    <b:container>
-                        <b:panelGrid colSpans="4,2,6" size="xs">
-                            <b:inputText id="familyname" value="{{scoreBean.name}}" required="true" label="What's your name? *" />
-                            <h:outputLabel value="" />
-                            <b:inputText id="score" value="{{scoreBean.score}}" label="Your score:" disabled="true"/>
-                            <h:outputLabel value="" />
-                        </b:panelGrid>
-                        <b:commandButton value="apply changes" action="#{scoreBean.saveScore}" dismiss="modal"/>
-                    </b:container>
+                <form prependId="false" addLabels="false">
+                    <b:row>
+                        <b:column span="12" size="xs">
+                            <p>You've made it into the hall of fame!</p>
+                        </b:column>
+                    </b:row>
+                    <b:row>
+                        <b:column span="12" size="xs">
+                            <b:panelGrid colSpans="6,6" size="xs">
+                                <b:inputText id="familyname" value="{{scoreBean.name}}" required="true" label="What's your name? *" />
+                                <b:inputText id="score" value="{{scoreBean.score}}" label="Your score:" disabled="true"/>
+                            </b:panelGrid>
+                            <b:commandButton value="apply changes" action="#{scoreBean.saveScore}" dismiss="modal"/>
+                        </b:column>
+                    </b:row>
     
                     <f:facet name="footer">
                         <b:commandButton value="Ajax Submit" dismiss="modal" ajax="true" update="form:inform infoshow" id="ajaxcb"

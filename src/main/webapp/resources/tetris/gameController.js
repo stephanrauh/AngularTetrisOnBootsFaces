@@ -176,7 +176,8 @@ function GameController(grid, scope) {
 	this.endOfGame = function() {
 		this.gameActive = false;
 		gameController.updateGraphics();
-		var dlg = $('.highscoreinputdialog');
+//        var dlg = $('.highscoreinputdialog');
+        var dlg = $('.modal'); // temporary solution until BootsFaces 0.6.5 has been released
 		dlg.modal();
 	};
 
