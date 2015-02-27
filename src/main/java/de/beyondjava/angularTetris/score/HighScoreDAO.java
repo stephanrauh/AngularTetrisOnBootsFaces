@@ -45,9 +45,41 @@ public class HighScoreDAO {
     public List<HighScore> loadHighScoreTable() {
         Session session = sessionFactory.openSession();
         try {
-            return (List<HighScore>) session.createQuery("from HighScore order by score desc").list();
+            List<HighScore> result = (List<HighScore>) session.createQuery("from HighScore order by score desc").list();
+            result = addDefaultEntries(result);
+            return result;
         } finally {
             session.close();
         }
+    }
+    
+    public List<HighScore> addDefaultEntries(List<HighScore> scores) {
+        scores.add(new HighScore("Alf Abet", 100));
+        scores.add(new HighScore("Anna Lytic", 200));
+        scores.add(new HighScore("Brook Lynn", 300));
+        scores.add(new HighScore("Buzz Zing", 400));
+        scores.add(new HighScore("Cal Efornia", 500));
+        scores.add(new HighScore("Di Nomite", 600));
+        scores.add(new HighScore("Frank Lee Speaking", 700));
+        scores.add(new HighScore("Gene Poole", 800));
+        scores.add(new HighScore("Herb Garden", 900));
+        scores.add(new HighScore("Iknowa Nothing", 1000));
+        scores.add(new HighScore("Justin Time ", 1100));
+        scores.add(new HighScore("Ken U. Seemee", 1200));
+        scores.add(new HighScore("Les Izmore", 1300));
+        scores.add(new HighScore("Marge Innastraightline", 1400));
+        scores.add(new HighScore("Nick O'Teen", 1500));
+        scores.add(new HighScore("Otto Mobile", 1600));
+        scores.add(new HighScore("Park Bench", 1700));
+        scores.add(new HighScore("Rusty Carr", 1800));
+        scores.add(new HighScore("Sonny Day", 1900));
+        scores.add(new HighScore("Taylor Maide", 2000));
+        scores.add(new HighScore("Ulee Daway ", 2100));
+        scores.add(new HighScore("Van Ishingpoint ", 2200));
+        scores.add(new HighScore("Wanda Party", 2300));
+        scores.add(new HighScore("X. Ray Specs", 2400));
+        scores.add(new HighScore("Yuri Diculous", 2500));
+        scores.add(new HighScore("Zalt Ann Pepper ", 2600));
+        return scores;
     }
 }

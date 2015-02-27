@@ -18,7 +18,6 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
-        <url-pattern>/javax.faces.resource/*</url-pattern>
     </servlet-mapping>
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>

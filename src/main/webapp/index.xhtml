@@ -11,8 +11,7 @@
 		<h:outputStylesheet library="tetris" name="angulartetris.css" target="head"></h:outputStylesheet>
 		<h:outputScript library="tetris" name="tetromino.js" target="head"></h:outputScript>
 		<h:outputScript library="tetris" name="gameController.js" target="head"></h:outputScript>
-		<style>
-		</style>
+        <h:outputScript library="tetris" name="smartTable.js" target="body"></h:outputScript>
 	</head>
 	<body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris" addLabels="false">
 		<container>
@@ -61,17 +60,36 @@
 					
 					</tab>
 					<tab title="High scores">
-                        Number of highscores: #{highScoreTableBean.highscores.size()}
-                        <h:dataTable var="score" value="#{highScoreTableBean.highscores}">
-                            <h:column headerText="Name">
-                                <h:outputText value="#{score.name}" />
-                            </h:column>
-                         
-                            <h:column headerText="Score">
-                                <h:outputText value="#{score.score}" />
-                            </h:column>
-                         
-                        </h:dataTable>
+                        <ngsync value="{{highScoreTableBean.highscores}}" direction="serverToClient" />                    
+                        <table st-table="highScoreTableBean.highscores" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th st-sort="name">name</th>
+                                <th st-sort="score">score</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <input st-search="'name'" placeholder="search for name" class="input-sm form-control" type="search"/>
+                                </th>
+                                <th colspan="4">
+                                    <input st-search="" placeholder="global search" class="input-sm form-control" type="search"/>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="trow in highScoreTableBean.highscores">
+                                <td>{{trow.name}}</td>
+                                <td>{{trow.score}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </tab>
 				</tabView>
 			</form>

@@ -179,6 +179,8 @@ function GameController(grid, scope) {
 //        var dlg = $('.highscoreinputdialog');
         var dlg = $('.modal'); // temporary solution until BootsFaces 0.6.5 has been released
 		dlg.modal();
+		var myScore={'name':'you', 'score':score};
+		scope.highScoreTableBean.highscores.push(myScore);
 	};
 
 	/** This method is called as a static function! */
