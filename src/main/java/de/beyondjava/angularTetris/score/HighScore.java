@@ -41,7 +41,9 @@ public class HighScore implements Serializable {
     }
 
     public String getName() {
-        return name;
+        if (null == name)
+            return null;
+        return name; //.replace("&#x0027;", "'").replace("&#x0022;", "\"");
     }
 
     public void setName(String name) {

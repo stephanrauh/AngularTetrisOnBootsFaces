@@ -9,44 +9,50 @@
 	<head>
 		<title>AngularFaces 2.0 + BootsFaces 0.6.0 Tetris demo</title>
 		<h:outputStylesheet library="tetris" name="angulartetris.css" target="head"></h:outputStylesheet>
+        <h:outputStylesheet library="sh" name="css/shCore.css"/>
+        <h:outputStylesheet library="sh" name="css/shCoreEclipse.css"/>
 		<h:outputScript library="tetris" name="tetromino.js" target="head"></h:outputScript>
 		<h:outputScript library="tetris" name="gameController.js" target="head"></h:outputScript>
         <h:outputScript library="tetris" name="smartTable.js" target="body"></h:outputScript>
+        <h:outputScript library="sh" name="js/shCore.js"         target="head"/>
+        <h:outputScript library="sh" name="js/shBrushXml.js"     target="head"/>
+        <h:outputScript library="sh" name="js/shBrushJava.js"    target="head"/>
+        <h:outputScript library="sh" name="js/shBrushJScript.js" target="head"/>
+        
 	</head>
 	<body style="width:1000px" ng-controller="AngularTetrisController" ng-app="AngularTetris" addLabels="false">
 		<container>
-			<h3>AngularTetris</h3>
+			<h3>AngularJS. Bootstrap. JSF. And Tetris.</h3>
+            <p>Enjoy!</p>
 			<form prependId="false">
 				<tabView>
 					<tab title="AngularTetris!">
-							<ngsync value="{{grid.rows}}" direction="serverToClient" />
-							<container>
+						<ngsync value="{{grid.rows}}" direction="serverToClient" />
+						<row>
+							<column span="#{2+(settingsBean.numberOfColumns*2/7)}">
+								<div class="divTable" id="playground">
+									<div class="divRow" ng-repeat="r in grid.rows ">
+										<div class="divCell" ng-repeat="cell in r.cells" id="cell"
+											style="background-color: {{brickColor(cell.color)}}"></div>
+									</div>
+								</div>
+							</column>
+							<column span="2">
 								<row>
-									<column span="#{2+(settingsBean.numberOfColumns*2/7)}">
-										<div class="divTable" id="playground">
-											<div class="divRow" ng-repeat="r in grid.rows ">
-												<div class="divCell" ng-repeat="cell in r.cells" id="cell"
-													style="background-color: {{brickColor(cell.color)}}"></div>
-											</div>
-										</div>
-									</column>
-									<column span="2">
-										<row>
-											<column span="12">
-												<inputText type="number" disabled="true" label="score"
-													value="{{scoreBean.score}}" />
-											</column>
-										</row>
-										<row>
-											<column span="12">
-												<b:button value="start game" style="margin-top:12px;" look="primary"
-													ng-click="game.initGame(); game.startGame()" ng-hide="game.gameActive" onclick="return false;">
-												</b:button>
-											</column>
-										</row>
+									<column span="12">
+										<inputText type="number" disabled="true" label="score"
+											value="{{scoreBean.score}}" />
 									</column>
 								</row>
-							</container>
+								<row>
+									<column span="12">
+										<b:button value="start game" style="margin-top:12px;" look="primary"
+											ng-click="game.initGame(); game.startGame()" ng-hide="game.gameActive" onclick="return false;">
+										</b:button>
+									</column>
+								</row>
+							</column>
+						</row>
 					</tab>
 					<tab title="Settings">
 						<b:panelGrid colSpans="3,9">
@@ -64,16 +70,8 @@
                         <table st-table="highScoreTableBean.highscores" class="table table-striped">
                             <thead>
                             <tr>
-                                <th st-sort="name">name</th>
-                                <th st-sort="score">score</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <input st-search="'name'" placeholder="search for name" class="input-sm form-control" type="search"/>
-                                </th>
-                                <th colspan="4">
-                                    <input st-search="" placeholder="global search" class="input-sm form-control" type="search"/>
-                                </th>
+                                <th st-sort="name">Name</th>
+                                <th st-sort="score">Score</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -91,6 +89,261 @@
                             </tfoot>
                         </table>
                     </tab>
+                    <tab title="What's it all about">
+                        <p>It's time for a fresh take on JSF. BootsFaces brings the clean look and feel of Bootstrap to the JSF world. AngularFaces
+                        adds AngularJS to the equation. AngularTetris takes both frameworks and pushes the envelope. Be honest: does it look like 
+                        server-side templating?</p>  
+                    </tab>
+                    <tab title="JSF markup">
+                        <p>The settings tab uses the panelGrid of BootsFaces and the automatic generation of labels of AngularFaces. The resulting source
+                        code is very compact.</p> 
+                        <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: true; first-line: 1">
+						<![CDATA[
+						<b:panelGrid colSpans="3,9">
+							<selectBooleanCheckbox value="{{settingsBean.preview}}" caption="preview (not implemented yet)" />
+							<selectBooleanCheckbox value="{{settingsBean.ignoreGravity}}" caption="gravity"/>
+							<inputText value="{{settingsBean.numberOfColumns}}" label="columns (width)"/>
+							<inputText value="{{settingsBean.numberOfRows}}" label="rows (height)"/>
+						</b:panelGrid>
+						<b:commandButton value="apply changes" ng-show="showApplyButton" />
+						<h:messages showSummary="true" showDetail="true" globalOnly="true"  />
+						]]>
+    					</script>
+
+                        <p>The highscore tab uses SmartTable to generate the table on the client. The &lt;ngsync&gt; tag
+                        only transfers the payload data to the client. As a result, the network is used a lot more
+                        efficient than with a traditional JSF or PrimeFaces data table.</p> 
+                        <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: true; first-line: 1">
+						<![CDATA[
+                       <ngsync value="{{highScoreTableBean.highscores}}" direction="serverToClient" />                    
+                        <table st-table="highScoreTableBean.highscores" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th st-sort="name">Name</th>
+                                <th st-sort="score">Score</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="trow in highScoreTableBean.highscores">
+                                <td>{{trow.name}}</td>
+                                <td>{{trow.score}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <div st-pagination="" st-items-by-page="itemsByPage" st-displayed-pages="7"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    
+						]]>
+    					</script>
+                        
+                        <p>The game tab itself is basically a two-dimensional grid. It's displayed by an AngularJS ng-repeat directive.</p>
+                        <p>The data structure of the playground is a bit odd. Basically, it's simply a two-dimensional array of integers.
+                        Unfortunately, it's difficult to translate such an array to JSon from Java. So I chose to model both the
+                        rows and the cells as full-blown objects. That make for slightly clumsy code, but it does the trick. 
+                        </p>
+                        <script type="syntaxhighlighter" class="brush: xml; toolbar: false;gutter: true; first-line: 1">
+						<![CDATA[
+						<ngsync value="{{grid.rows}}" direction="serverToClient" />
+						<row>
+							<column span="#{2+(settingsBean.numberOfColumns*2/7)}">
+								<div class="divTable" id="playground">
+									<div class="divRow" ng-repeat="r in grid.rows ">
+										<div class="divCell" ng-repeat="cell in r.cells" id="cell"
+											style="background-color: {{brickColor(cell.color)}}"></div>
+									</div>
+								</div>
+							</column>
+							<column span="2">
+								<row>
+									<column span="12">
+										<inputText type="number" disabled="true" label="score"
+											value="{{scoreBean.score}}" />
+									</column>
+								</row>
+								<row>
+									<column span="12">
+										<b:button value="start game" style="margin-top:12px;" look="primary"
+											ng-click="game.initGame(); game.startGame()" ng-hide="game.gameActive" onclick="return false;">
+										</b:button>
+									</column>
+								</row>
+							</column>
+						</row>
+                    
+						]]>
+    					</script>
+                    </tab>
+                    <tab title="The AngularJS controller">
+                        <p>The AngularJS controller is responsible for hiding the buttons and for displaying the highscore table.
+                        It adds a certain degree of responsiveness to the JSF application.</p>
+                        <script type="syntaxhighlighter" class="brush: js; toolbar: false;gutter: true; first-line: 1">
+                        <![CDATA[
+angular.module("AngularTetris", [ "angularfaces", "smart-table" ])
+.controller('AngularTetrisController', ['$scope', function($scope) {
+   initJSFScope($scope);
+
+	$scope.game = new GameController($scope.grid, $scope);
+	window.gameController=$scope.game;
+	$scope.game.init($scope.grid);
+
+	$scope.brickColor = function(color){
+		if (0==color) return "#FFFFFF";
+        if (1==color) return "#00F0F0";
+        if (2==color) return "#0000F0";
+        if (3==color) return "#F0A000";
+        if (4==color) return "#F0F000";
+        if (5==color) return "#00F000";
+        if (6==color) return "#F00000";
+        if (7==color) return "#A000F0";
+        return "#00FFFFFF";
+	};
+	
+	$scope.onkey = function(event) {
+		$scope.game.onKey(event);
+	};
+	
+	$scope.showApplyButton=false;
+	
+    $scope.$watch('settingsBean.ignoreGravity', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    $scope.$watch('settingsBean.preview', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    $scope.$watch('settingsBean.numberOfColumns', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    $scope.$watch('settingsBean.numberOfRows', function(newValue, oldValue) {
+      if (newValue!==oldValue) $scope.showApplyButton=true;
+    });
+    
+    $scope.showApplyButton=false;
+    
+    
+    $scope.itemsByPage=15;
+    
+    $scope.rowCollection = [];
+}]);
+                    
+                        ]]>
+                        </script>
+                        <p>The GameController withing the AngularJS controller is responsible for running the game itself. It has been
+                        implemented in Javascript. If you're interested in the source code of the game controller,
+                        please look at the GitHub repository:</p>
+                        <p><a target="#" href="https://github.com/stephanrauh/AngularTetrisOnBootsFaces/blob/master/src/main/webapp/resources/tetris/gameController.js">GameController.js</a></p>
+                        <p><a target="#" href="https://github.com/stephanrauh/AngularTetrisOnBootsFaces/blob/master/src/main/webapp/resources/tetris/tetromino.js">Tetromino.js (the Tetris bricks)</a></p>
+                        <p><a target="#" href="https://github.com/stephanrauh/AngularTetrisOnBootsFaces/blob/master/src/main/webapp/resources/tetris/angulartetris.css">CSS file</a></p>
+                    </tab>
+
+                    <tab title="The JSF bean">
+                        <p>There's nothing special about the JSF beans. The Grid class represents the entire playground. Actually, in the current
+                        version it doesn't play an important role. It simply initializes the AngularJS model of the game with empty fields.</p>
+                        <script type="syntaxhighlighter" class="brush: java; toolbar: false;gutter: true; first-line: 1">
+<![CDATA[
+@ManagedBean
+@RequestScoped
+public class Grid implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@ManagedProperty("#{settingsBean}")
+	private SettingsBean settings;
+
+	public List<Row> rows;
+
+	public List<Row> getRows() {
+		return rows;
+	}
+
+	public Grid() {
+	}
+
+	@PostConstruct
+	public void init() {
+		rows = new ArrayList<Row>();
+		for (int y = 0; y < settings.getNumberOfRows(); y++) {
+			rows.add(new Row(settings.getNumberOfColumns()));
+		}
+	}
+
+	public void setSettings(SettingsBean settings) {
+		this.settings = settings;
+	}
+}
+
+                        ]]>
+                        </script>
+<p>The Row class represents a row of picture elements.</p>                        
+                        <script type="syntaxhighlighter" class="brush: java; toolbar: false;gutter: true; first-line: 1">
+                        <![CDATA[
+@ManagedBean
+@ViewScoped
+public class Row implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	public List<Cell> cells;
+
+	public List<Cell> getCells() {
+		return cells;
+	}
+
+	public void setCells(List<Cell> cells) {
+		this.cells = cells;
+	}
+
+	/** Default constructor seems to be required by JBoss */ 
+    public Row() {
+        init(10);
+    }
+
+	public Row(int width) {
+		init(width);
+	}
+
+	public void init(int width) {
+		cells = new ArrayList<Cell>();
+		for (int x = 0; x < width; x++)
+				cells.add(new Cell(0));
+	}
+}
+                    
+                        ]]>
+                        </script>
+<p>The Cell class represents an individual pixel. In theory, a simple two-dimensional array of integers suffices to represent the playground.
+Introducing the Row and the Cell classes became necessary because the limitation of JSon and the JSon parsers on the Java and Javascript side.</p>                        
+                        <script type="syntaxhighlighter" class="brush: java; toolbar: false;gutter: true; first-line: 1">
+                        <![CDATA[
+public class Cell implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    int color;
+
+    /** Default constructor seems to be required by JBoss */
+    public Cell() {
+        this(0);
+    }
+
+    public Cell(int color) {
+        this.color = color;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+}
+                    
+                        ]]>
+                        </script>
+                    </tab>
+                    
 				</tabView>
 			</form>
             <b:modal id="amodal" title="Congratulations!" styleClass="highscoreinputdialog">
@@ -104,7 +357,7 @@
                         <b:column span="12" size="xs">
                             <b:panelGrid colSpans="6,6" size="xs">
                                 <b:inputText id="familyname" value="{{scoreBean.name}}" required="true" label="What's your name? *" />
-                                <b:inputText id="score" value="{{scoreBean.score}}" label="Your score:" disabled="true"/>
+                                <b:inputText id="score" value="{{scoreBean.score}}" label="Your score:" />
                             </b:panelGrid>
                             <b:commandButton value="apply changes" action="#{scoreBean.saveScore}" dismiss="modal"/>
                         </b:column>
@@ -119,5 +372,8 @@
             </b:modal>
 		</container>
         <h:messages />
+        <script type="text/javascript">
+            SyntaxHighlighter.all();
+        </script>
 	</body>
 </f:view>
