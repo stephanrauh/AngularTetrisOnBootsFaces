@@ -1,5 +1,7 @@
 package de.beyondjava.angularTetris.score;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class HighScoreDAO {
         try {
             List<HighScore> result = (List<HighScore>) session.createQuery("from HighScore order by score desc").list();
             result = addDefaultEntries(result);
-            result.sort(new Comparator<HighScore>() {
+            Collections.sort(result, new Comparator<HighScore>() {
                 public int compare(HighScore o1, HighScore o2) {
                     return o2.getScore() - o1.getScore();
                 }
