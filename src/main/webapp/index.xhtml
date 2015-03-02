@@ -24,7 +24,7 @@
 		<container>
 			<h3>AngularJS. Bootstrap. JSF. And Tetris.</h3>
             <p>Enjoy!</p>
-			<form prependId="false">
+			<form>
 				<tabView>
 					<tab title="AngularTetris!">
 						<ngsync value="{{grid.rows}}" direction="serverToClient" />
@@ -347,7 +347,7 @@ public class Cell implements Serializable {
 				</tabView>
 			</form>
             <b:modal id="amodal" title="Congratulations!" styleClass="highscoreinputdialog">
-                <form prependId="false" addLabels="false">
+                <form addLabels="false">
                     <b:row>
                         <b:column span="12" size="xs">
                             <p>You've made it into the hall of fame!</p>

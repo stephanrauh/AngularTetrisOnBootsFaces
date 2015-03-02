@@ -23,6 +23,11 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <context-param>
+        <param-name>javax.faces.SEPARATOR_CHAR</param-name>
+        <param-value>_</param-value>
+    </context-param>
+    
     <!-- The BootsFaces_USETHEME context-param controls the loading of the bootstrap-theme.css -->
     <!-- The default is false, when set to true the bootstrap-theme.css will be loaded -->
     <context-param>

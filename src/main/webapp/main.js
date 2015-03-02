@@ -40,9 +40,7 @@ angular.module("AngularTetris", [ "angularfaces", "smart-table" ])
     
     $scope.showApplyButton=false;
     
-    
+    // Settings for the SmartTable widget    
     $scope.itemsByPage=15;
-    
-    $scope.rowCollection = [];
 }]);
 

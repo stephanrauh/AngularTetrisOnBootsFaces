@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Size;
 
 @ManagedBean
 @SessionScoped
@@ -15,6 +16,7 @@ public class ScoreBean implements Serializable {
     private HighScoreDAO dao = new HighScoreDAO();
     private int score;
 
+    @Size(min=3, max=20)
     private String name;
 
     public int getScore() {
