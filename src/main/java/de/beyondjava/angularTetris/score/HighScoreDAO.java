@@ -44,7 +44,7 @@ public class HighScoreDAO {
     public List<HighScore> loadHighScoreTable() {
         Session session = sessionFactory.openSession();
         try {
-            List<HighScore> result = (List<HighScore>) session.createQuery("from HighScore order by score desc").setMaxResults(10).list();
+            List<HighScore> result = (List<HighScore>) session.createQuery("from HighScore order by score desc").setMaxResults(30).list();
             result = addDefaultEntries(result);
             Collections.sort(result, new Comparator<HighScore>() {
                 public int compare(HighScore o1, HighScore o2) {
